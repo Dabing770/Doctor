@@ -227,3 +227,26 @@ details.data-table .table-wrap { max-height: 320px; overflow: auto; margin-top: 
 .input { border: 1px solid var(--border); background: var(--surface-1); border-radius: 8px; padding: 6px 10px; font-size: 13px; }
 .btn:disabled { opacity: .5; cursor: default; }
 [hidden] { display: none !important; }
+
+/* ---------- 小医生 ---------- */
+.doctor-hero { display: flex; gap: 16px; align-items: flex-start; }
+.doctor-avatar { flex: none; }
+.advice-list { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); }
+.advice { background: var(--surface-1); border: 1px solid var(--border); border-left: 4px solid var(--lv); border-radius: var(--radius); padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; }
+.advice[role='button'] { cursor: pointer; }
+.advice[role='button']:hover { background: var(--surface-2); }
+.advice-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.advice h3 { color: var(--text-primary); font-size: 15px; font-weight: 600; }
+.lv-badge { font-size: 12px; padding: 1px 8px; border-radius: 99px; background: var(--lv); color: var(--lv-ink); font-weight: 500; }
+.advice .finding { font-size: 14px; }
+.advice .tip { font-size: 13px; color: var(--text-secondary); }
+.advice .basis { font-size: 12px; color: var(--text-muted); }
+.lv-doctor { --lv: var(--critical); --lv-ink: #fff; }
+.lv-warning { --lv: var(--warning); --lv-ink: #0b0b0b; }
+.lv-info { --lv: var(--accent); --lv-ink: #fff; }
+.lv-good { --lv: var(--good); --lv-ink: #fff; }
+.plain-list { margin: 0; padding-left: 18px; display: grid; gap: 6px; font-size: 14px; color: var(--text-secondary); }
+.plain-list.urgent li::marker { color: var(--critical); }
+@media (max-width: 640px) { .doctor-hero { flex-direction: column; } }
+#doc-filter { max-width: 100%; overflow-x: auto; scrollbar-width: none; }
+#doc-filter button { white-space: nowrap; }
