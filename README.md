@@ -1,0 +1,59 @@
+# 健康数据分析
+
+在浏览器里可视化和分析 iPhone「健康」App 导出的数据。纯 HTML + CSS + JavaScript，不需要构建，可以直接用 GitHub Pages 发布。
+
+**隐私**：你选择的文件只在自己的浏览器里解析，不会上传到 GitHub 或任何服务器。解析结果保存在当前设备浏览器的 IndexedDB 中，可在页面上「清除数据」。仓库里只有网页代码，没有任何健康数据。
+
+## 使用
+
+1. iPhone「健康」App → 右上角头像 → 「导出所有健康数据」，得到「导出.zip」。
+2. 打开网页，把 zip（或解压后的 `export.xml`／`导出.xml`）拖进去，或点击选择文件。手机上也能在「文件」里直接选择。
+3. 可以先点「先用示例数据看看」。
+
+## 页面
+
+- **概览**：主要指标的区间均值、与上一周期对比、12 周走势；健身记录圆环达成率；一周步数节律热力图。
+- **趋势**：任一指标按日、周、月查看，含 7 日平均、当日范围、统计值、星期规律和数据表。
+- **睡眠**：每晚分期、作息时间、规律性、睡眠效率。
+- **运动**：按类型汇总的训练次数、时长、距离、心率和配速。
+- **洞察**：自动总结、指标相关性矩阵（可错开一天）、散点图、基于个人 28 天基线的异常日。
+- **全部数据**：导出里所有数据类型、记录数和来源。
+
+## 发布到 GitHub Pages
+
+1. 在 GitHub 新建仓库，把本目录的文件推送到 `main` 分支。
+2. 仓库 → Settings → Pages → Build and deployment：Source 选 **Deploy from a branch**，Branch 选 `main`、文件夹 `/ (root)`，保存。
+3. 一两分钟后访问 `https://<用户名>.github.io/<仓库名>/`。
+
+免费账号的 GitHub Pages 需要公开仓库。代码公开没关系，健康数据不会进仓库；`.gitignore` 也已排除 zip 和 xml 文件，防止误提交。
+
+## 本地预览
+
+网页使用 ES 模块和 Web Worker，不能直接双击 `index.html` 打开，需要一个本地服务器：
+
+```powershell
+python -m http.server 5180
+```
+
+然后访问 http://localhost:5180 。
+
+## 目录
+
+```
+index.html            页面结构
+css/style.css         样式（含深色模式）
+js/app.js             状态、导入、页面切换
+js/parse.worker.js    后台线程：流式解压 zip、解析 XML
+js/lib/aggregate.js   把数百万条记录按天聚合
+js/lib/analysis.js    滚动平均、相关性、异常检测等
+js/lib/metrics.js     指标名称、单位与格式化
+js/lib/demo.js        生成随机示例数据
+js/views/*.js         六个页面
+vendor/               ECharts 6.1.0、fflate 0.8.3（本地副本，不依赖外部 CDN）
+```
+
+## 数据处理说明
+
+- iPhone 和 Apple Watch 会重复记录步数等累计量，每天只取记录量最大的那个来源。
+- 睡眠归到醒来那天；同一晚有多个来源时，优先选有分期数据的。
+- 分析结果仅供参考，不构成医疗建议。

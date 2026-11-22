@@ -1,0 +1,8 @@
+# 不要把健康数据提交到仓库
+*.zip
+export*.xml
+导出*.xml
+apple_health_export/
+.DS_Store
+Thumbs.db
+.claude/
