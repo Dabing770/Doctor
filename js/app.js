@@ -9,6 +9,7 @@ import { renderWorkouts } from './views/workouts.js'
 import { renderInsights } from './views/insights.js'
 import { renderAllData } from './views/alldata.js'
 import { renderDoctor } from './views/doctor.js'
+import { renderAiDoctor } from './views/aidoctor.js'
 
 const VIEWS = {
   overview: renderOverview,
@@ -17,6 +18,7 @@ const VIEWS = {
   workouts: renderWorkouts,
   insights: renderInsights,
   doctor: renderDoctor,
+  ai: renderAiDoctor,
   all: renderAllData,
 }
 
